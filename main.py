@@ -48,8 +48,8 @@ class App(tk.Frame):
         self.estadoBar()
         self.toolBar()
         #self.toolbarLeft()
-        self.ban = 0       
-                
+        self.toolbarleft = tk.Frame(self.parent, relief=tk.GROOVE, bg='white')
+                    
 
     def ui(self):
         '''Aqui van las Macros'''
@@ -147,36 +147,46 @@ class App(tk.Frame):
         toolbar.pack(side=tk.TOP, fill=tk.X)
 
     def toolbarLeft(self, base=None):
-        if self.ban == 1:
-            toolbarleft.destroy()
-            toolbarleft = tk.Frame(self.parent, relief=tk.GROOVE, bg='white')
-            self.ban = 0
-            print ('Destruido y Creado self.band = 0')
-        else:
-            toolbarleft = tk.Frame(self.parent, relief=tk.GROOVE, bg='white')
-            self.ban = 1
-            print ('Creado self.band = 1')
+        for elem in self.toolbarleft.winfo_children():
+            elem.destroy()    
 
-        #toolbarleft = tk.Frame(self.parent, relief=tk.GROOVE, bg='white')
+        canv = tk.Canvas(self.toolbarleft, relief=tk.FLAT,width=150, height=200,
+        scrollregion=(0,0,300, 2000), highlightthickness=0)
+        canv.scrollY = tk.Scrollbar(self.toolbarleft, orient=tk.VERTICAL)
+        canv['yscrollcommand'] = canv.scrollY.set
+        canv.scrollY['command'] = canv.yview
 
-        if base == 'NewQ2':
-            macros = open('resource/NewQ2Macros.txt', 'r').readlines()
+        
+
+        if base == 'NewQ2':            
+            macros = open('resource/NewQ2Macros.txt', 'r').readlines()            
             nvar = ["m%s" % str(x + 1) for x in range(0, len(macros))]
-            for var, macro in zip(nvar, macros):
-                exec("%s = tk.Button(toolbarleft, text=%s,"
-                    "relief=tk.FLAT, bg='white')" % (var, macro))
-                exec("%s.image = self.eimg" % var)
-                exec("%s.pack(side=tk.TOP, padx=2, pady=2)" % var)
-                toolbarleft.pack(side=tk.LEFT, fill=tk.Y)
+
+            nq2Macro1 = tk.Button(self.toolbarleft, text='Warm-Up', relief=tk.FLAT, command=lambda:self.accion('Warm-Up'))
+            nq2Macro1.pack(side=tk.TOP, padx=2, pady=2)
+
+
+            canv.create_window(75, 15, window=nq2Macro1)
+            canv.scrollY.pack(side=tk.RIGHT, fill=tk.Y)
+            canv.pack(side=tk.LEFT, expand=tk.YES, fill=tk.BOTH)
+            self.toolbarleft.pack(expand=tk.NO, side=tk.LEFT, fill=tk.Y)
+            
         else:
+            cont = 1
             macros = open('resource/OldQ2Macros.txt', 'r').readlines()
             nvar = ["m%s" % str(x + 1) for x in range(0, len(macros))]
-            for var, macro in zip(nvar, macros):
-                exec ("%s = tk.Button(toolbarleft, text=%s, relief=tk.FLAT,"
-                    " bg='white')" % (var, macro))
-                exec ("%s.image = self.eimg" % var)
-                exec ("%s.pack(side=tk.TOP, padx=2, pady=2)" % var)
-                toolbarleft.pack(side=tk.LEFT, fill=tk.Y)
+
+            oq2Macro1 = tk.Button(self.toolbarleft, text='StarmUp', relief=tk.FLAT, command=lambda:self.accion('StarmUp'))
+            oq2Macro1.pack(side=tk.TOP, padx=2, pady=2)
+
+            canv.create_window(75,15, window=oq2Macro1)
+            canv.scrollY.pack(side=tk.RIGHT, fill=tk.Y)
+            canv.pack(side=tk.LEFT, expand=tk.YES, fill=tk.BOTH)
+            self.toolbarleft.pack(expand=tk.NO, side=tk.LEFT, fill=tk.Y)
+
+    def accion(self,macro=None):
+        print macro
+        
 
     def callback(self, event):
         if event == 'NewQ2.accdb':
