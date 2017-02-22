@@ -197,11 +197,11 @@ class App(tk.Frame):
 
 def main():
     root = tk.Tk()
-    conex = db.Base()
+    #conex = db.Base()
     root.geometry('800x600')
-    Aplication = App(root, conex)
+    Aplication = App(root)
     Aplication.mainloop()
-    conex.desconectar()
+    #conex.desconectar()
 
 
 if __name__ == "__main__":
