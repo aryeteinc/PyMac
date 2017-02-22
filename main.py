@@ -15,7 +15,7 @@ __license__ = 'GNU GPLv3'
 
 import sys
 import getpass
-from DB import db
+#from DB import db
 from ttk import *
 import os
 from PIL import Image, ImageTk
@@ -40,9 +40,9 @@ class App(tk.Frame):
     def __init__(self, parent=None, conex=None):
         tk.Frame.__init__(self, parent)
         self.parent = parent
-        self.conex = conex
-        self.conex.query('SELECT `id_sch`, `name_sch`, `state_sch`, \
-        `city_sch`, `add_sch`, `tel_sch`, `contact_sch` FROM `school` ')
+        #self.conex = conex
+        #self.conex.query('SELECT `id_sch`, `name_sch`, `state_sch`, \
+        #`city_sch`, `add_sch`, `tel_sch`, `contact_sch` FROM `school` ')
         self.ui()
         #self.mainMenu()
         self.estadoBar()
