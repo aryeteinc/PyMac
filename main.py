@@ -115,13 +115,14 @@ class App(tk.Frame):
         tv.App(otra)
 
     def estadoBar(self):
-        info1 = os.uname()[0]
+        '''info1 = os.uname()[0]
         info2 = os.uname()[1]
         info3 = os.uname()[2]
         info4 = os.uname()[3]
         info5 = os.uname()[4]
         mensaje = " " + info1 + ": " + info2 + " - " + info3 + \
-            " - " + info4 + " - " + info5
+            " - " + info4 + " - " + info5'''
+        mensaje ='probando'
         self.barraest = tk.Label(self.parent, text=mensaje, bd=1,
             relief=tk.FLAT, anchor=tk.W)
         self.barraest.pack(side=tk.BOTTOM, fill=tk.X)
